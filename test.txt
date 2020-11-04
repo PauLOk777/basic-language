@@ -1,0 +1,6 @@
+10 print "a gre"
+5 goto 10
+15 rem ignored
+0 error
+20 print "b" ; "y" ; "e" : end 3.
+30 85 + .56
