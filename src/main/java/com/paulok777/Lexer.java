@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
 public class Lexer {
     private static final int groupCount = 12;
     private static final String REGEXP_FOR_DEFINING_TOKEN =
-            "((?<= )\"[^\"]*\"(?=\\s))|((?<= )\\d+(?=\\s)|^\\d+(?= ))" +
-                    "|((?<= )\\d+\\.(?=\\s)|(?<= )\\.\\d+(?=\\s)|(?<= )\\d+\\.\\d+(?=\\s))" +
+            "((?<=[ ;])\"[\\s\\S]*[^\\\\]\"(?=[\\s;]))|((?<=[ ;+])\\d+(?=[\\s;+])|^\\d+(?=[ ;+]))" +
+                    "|((?<=[ ;+])\\d+\\.(?=[\\s;+])|(?<=[ ;+])\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\d+\\.\\d+(?=[\\s;+]))" +
             "|((?<= )print(?= ))|((?<= )goto(?= ))|((?<= )end(?= ))" +
-                    "|((?<= );(?= ))|((?<= ):(?= ))|((?<= )rem(?= ))|(\n)|((?<= )\\+(?= ))|(\\S+)";
+                    "|(;)|(:)|((?<= )rem(?= ))|(\n)|" +
+                    "((?<=[ \\d.])\\+(?=[ \\d.]))|(\\S+)";
 
     public static List<Token> tokenizeString(String row) {
         List<Token> tokens = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Lexer {
             }
             Token.TokenType tokenType = Token.TokenType.values()[groupNumber];
             tokens.add(new Token(matcher.group(), tokenType));
+            if (tokenType.equals(Token.TokenType.COMMENT)) break;
         }
 
         return tokens;
