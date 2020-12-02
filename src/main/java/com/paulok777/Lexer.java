@@ -8,11 +8,18 @@ import java.util.regex.Pattern;
 public class Lexer {
     private static final int groupCount = 12;
     private static final String REGEXP_FOR_DEFINING_TOKEN =
-            "((?<=[ ;])\"[\\s\\S]*[^\\\\]\"(?=[\\s;]))|((?<=[ ;+])\\d+(?=[\\s;+])|^\\d+(?=[ ;+]))" +
-                    "|((?<=[ ;+])\\d+\\.(?=[\\s;+])|(?<=[ ;+])\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\d+\\.\\d+(?=[\\s;+]))" +
-            "|((?<= )print(?= ))|((?<= )goto(?= ))|((?<= )end(?= ))" +
-                    "|(;)|(:)|((?<= )rem(?= ))|(\n)|" +
-                    "((?<=[ \\d.])\\+(?=[ \\d.]))|(\\S+)";
+            "((?<=[ ;])\"[^\"]*\"(?=[\\s;]))" +
+                    "|((?<=[ ;+])\\d+(?=[\\s;+])|^\\d+(?=[ ;+])|^\\d+$)" +
+                    "|((?<=[ ;+])\\d+\\.(?=[\\s;+])|(?<=[ ;+])\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\d+\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\.(?=[\\s;+]))" +
+                    "|((?<= )print(?=\\s))" +
+                    "|((?<= )goto(?= ))" +
+                    "|((?<= )end(?=\\s))" +
+                    "|(;)" +
+                    "|(:)" +
+                    "|((?<= )rem(?=\\s))" +
+                    "|(\n)|" +
+                    "((?<=[ \\d.])\\+(?=[ \\d.]))" +
+                    "|(\\S+)";
 
     public static List<Token> tokenizeString(String row) {
         List<Token> tokens = new ArrayList<>();
@@ -42,12 +49,5 @@ public class Lexer {
         }
 
         return matrixOfTokens;
-    }
-
-    public static void main(String[] args) {
-        List<List<Token>> matrixOfTokens = parsePageToTokens(Reader.getLines("test.txt"));
-        for (List<Token> rowOfTokens : matrixOfTokens) {
-            System.out.println(rowOfTokens);
-        }
     }
 }

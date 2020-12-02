@@ -1,7 +1,11 @@
 10 print "a gre"
-50 print "a \"hello\"gre"
 5 goto 10
 15 rem ignored
-0 error
-20 print "b";"y";"e";1. : end 3.
-30 85+.56
+0 rem
+
+20 print "b";"y";"e";1. : end
+
+30 rem 85+.56
+60 rem . ::: print 00.123400 : goto 20
+70 rem print rem goto
+80 goto 008 + .12 : print "e";"n";"12"

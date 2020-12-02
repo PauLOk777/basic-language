@@ -1,7 +1,7 @@
 package com.paulok777;
 
 public class Token {
-    private Object info;
+    private final Object info;
     private final TokenType tokenType;
 
     public enum TokenType {
@@ -23,11 +23,23 @@ public class Token {
         if (tokenType.equals(TokenType.INTEGER)) {
             this.info = Long.valueOf((String) info);
         } else if (tokenType.equals(TokenType.DECIMAL)) {
-            this.info = Double.valueOf((String) info);
+            if (info.toString().equals(".")) {
+                this.info = 0.0;
+            } else {
+                this.info = Double.valueOf((String) info);
+            }
         } else {
             this.info = info;
         }
         this.tokenType = tokenType;
+    }
+
+    public Object getInfo() {
+        return info;
+    }
+
+    public TokenType getTokenType() {
+        return tokenType;
     }
 
     @Override
