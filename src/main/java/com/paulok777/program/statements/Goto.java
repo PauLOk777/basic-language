@@ -1,7 +1,7 @@
-package com.paulok777.statements;
+package com.paulok777.program.statements;
 
-import com.paulok777.Line;
-import com.paulok777.printable.Expression;
+import com.paulok777.program.Line;
+import com.paulok777.program.statements.printable.Expression;
 
 public class Goto extends Statement {
     public static final String GOTO = "goto";

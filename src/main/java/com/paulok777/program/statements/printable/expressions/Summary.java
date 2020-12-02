@@ -1,6 +1,6 @@
-package com.paulok777.printable.expressions;
+package com.paulok777.program.statements.printable.expressions;
 
-import com.paulok777.printable.Expression;
+import com.paulok777.program.statements.printable.Expression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +27,17 @@ public class Summary extends Expression {
     }
 
     @Override
-    public Number getSum() {
-        return numbers.stream().map(Number::doubleValue).reduce(0.0, Double::sum);
-    }
-
-    @Override
-    public String getPrintableString() {
-        StringBuilder result = new StringBuilder();
-        for (Number number: numbers) {
-            result.append(number).append(SIGN);
+    public String getPrintableString(boolean numberLine) {
+        if (numbers.size() == 0) return "\n";
+        if (numberLine) {
+            return String.valueOf(numbers.stream().map(Number::doubleValue).reduce(0.0, Double::sum).intValue());
         }
-        return result.substring(0, result.length() - 1);
+
+        if (numbers.stream().anyMatch(n -> n instanceof Double)) {
+            return String.valueOf(numbers.stream().map(Number::doubleValue).reduce(0.0, Double::sum));
+        } else {
+            return String.valueOf(numbers.stream().map(Number::intValue).reduce(0, Integer::sum));
+        }
     }
 
     @Override

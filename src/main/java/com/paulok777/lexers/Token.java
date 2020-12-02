@@ -1,4 +1,4 @@
-package com.paulok777;
+package com.paulok777.lexers;
 
 public class Token {
     private final Object info;

@@ -1,7 +1,7 @@
-package com.paulok777;
+package com.paulok777.program;
 
-import com.paulok777.statements.Rem;
-import com.paulok777.statements.Statement;
+import com.paulok777.program.statements.Rem;
+import com.paulok777.program.statements.Statement;
 
 import java.util.List;
 

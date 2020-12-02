@@ -1,4 +1,4 @@
-package com.paulok777.printable;
+package com.paulok777.program.statements.printable;
 
 import java.util.List;
 
@@ -10,6 +10,4 @@ public abstract class Expression extends Printable {
     public abstract List<Number> getNumbers();
 
     public abstract String getSign();
-
-    public abstract Number getSum();
 }

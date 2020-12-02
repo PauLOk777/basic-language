@@ -1,4 +1,4 @@
-package com.paulok777.statements;
+package com.paulok777.program.statements;
 
 public class End extends Statement {
     public static final String END = "end";

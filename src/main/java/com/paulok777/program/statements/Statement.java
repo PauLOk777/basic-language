@@ -1,4 +1,4 @@
-package com.paulok777.statements;
+package com.paulok777.program.statements;
 
 public abstract class Statement {
     public static final String STATEMENT_OFFSET = "      ";

@@ -1,7 +1,7 @@
-package com.paulok777.statements;
+package com.paulok777.program.statements;
 
-import com.paulok777.Line;
-import com.paulok777.printable.Printable;
+import com.paulok777.program.Line;
+import com.paulok777.program.statements.printable.Printable;
 
 import java.util.List;
 

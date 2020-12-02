@@ -1,4 +1,4 @@
-package com.paulok777.statements;
+package com.paulok777.program.statements;
 
 public class Rem {
     public static final String REM = "rem";

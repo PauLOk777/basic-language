@@ -1,4 +1,4 @@
-package com.paulok777;
+package com.paulok777.lexers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Lexer {
     private static final int groupCount = 12;
     private static final String REGEXP_FOR_DEFINING_TOKEN =
-            "((?<=[ ;])\"[^\"]*\"(?=[\\s;]))" +
+            "((?<=[ ;])\"[^\"]*\"(?=[\\s;])|(?<=[ ;])'[^']*'(?=[\\s;]))" +
                     "|((?<=[ ;+])\\d+(?=[\\s;+])|^\\d+(?=[ ;+])|^\\d+$)" +
                     "|((?<=[ ;+])\\d+\\.(?=[\\s;+])|(?<=[ ;+])\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\d+\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\.(?=[\\s;+]))" +
                     "|((?<= )print(?=\\s))" +

@@ -1,10 +1,10 @@
-package com.paulok777.printable;
+package com.paulok777.program.statements.printable;
 
 public class PrintableString extends Printable {
     private String printable;
 
     public PrintableString(String printable) {
-        this.printable = printable;
+        this.printable = "\"" + printable.substring(1, printable.length() - 1) + "\"";
     }
 
     public String getPrintable() {
@@ -16,7 +16,7 @@ public class PrintableString extends Printable {
     }
 
     @Override
-    public String getPrintableString() {
+    public String getPrintableString(boolean numberLine) {
         return printable;
     }
 

@@ -1,11 +1,13 @@
-package com.paulok777;
+package com.paulok777.parsers;
 
 import com.paulok777.exceptions.BasicSyntaxException;
-import com.paulok777.printable.Expression;
-import com.paulok777.printable.Printable;
-import com.paulok777.printable.PrintableString;
-import com.paulok777.printable.expressions.Summary;
-import com.paulok777.statements.*;
+import com.paulok777.lexers.Token;
+import com.paulok777.program.statements.printable.Expression;
+import com.paulok777.program.statements.printable.Printable;
+import com.paulok777.program.statements.printable.PrintableString;
+import com.paulok777.program.statements.printable.expressions.Summary;
+import com.paulok777.program.statements.*;
+import com.paulok777.program.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Parser {
         TreeSet<Line> program = new TreeSet<>();
 
         for (int i = 0; i < tokenMatrix.size(); i++) {
+            if (tokenMatrix.get(i).size() == 1) continue;
             Object userLineNumber = tokenMatrix.get(i).get(0).getInfo();
             try {
                 boolean isAdded = program.add(createNewLine(tokenMatrix.get(i)));

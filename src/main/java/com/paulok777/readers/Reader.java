@@ -1,4 +1,4 @@
-package com.paulok777;
+package com.paulok777.readers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
