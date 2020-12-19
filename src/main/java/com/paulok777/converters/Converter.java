@@ -1,6 +1,7 @@
 package com.paulok777.converters;
 
 import com.paulok777.program.Line;
+import com.paulok777.program.statements.For;
 import com.paulok777.program.statements.Goto;
 import com.paulok777.program.statements.Print;
 import com.paulok777.program.statements.Statement;
@@ -24,9 +25,13 @@ public class Converter {
     private static final String GOTO_FUNCTION_START = "f";
     private static final String GOTO_FUNCTION_END = "();\n";
     private static final String END_FUNCTION = "System.exit(0);\n";
+    private static final String FOR_FUNCTION_START = "for(int ";
+    private static final String FOR_FUNCTION_MIDDLE = " {\n";
+    private static final String FOR_FUNCTION_END = "}\n";
     private static final String PRINT = "print";
     private static final String GOTO = "goto";
     private static final String END = "end";
+    private static final String FOR = "for";
     private static final String CONCAT = "+";
     private static final String MAIN_FUNCTION_START = "public static void main(String[] args) {\n";
     private static final String CREATE_NEW_FILE_EXCEPTION = "Can't create new file";
@@ -60,32 +65,9 @@ public class Converter {
                 function.append(line.getNumber()).append(MIDDLE_OF_FUNCTION);
 
                 List<Statement> statements = line.getStatements();
+
                 for (Statement statement : statements) {
-                    switch (statement.getStatementType()) {
-                        case PRINT:
-                            function.append(PRINT_FUNCTION_START);
-                            Print print = (Print) statement;
-                            List<Printable> printableList = print.getPrintableList();
-
-                            for (Printable printable : printableList) {
-                                function.append(printable.getPrintableString()).append(CONCAT);
-                            }
-
-                            function.deleteCharAt(function.length() - 1);
-
-                            function.append(PRINT_FUNCTION_END);
-                            break;
-                        case GOTO:
-                            function.append(GOTO_FUNCTION_START);
-                            Goto goTo = (Goto) statement;
-
-                            function.append(goTo.getExpression().getPrintableString(true));
-                            function.append(GOTO_FUNCTION_END);
-                            break;
-                        case END:
-                            function.append(END_FUNCTION);
-                            break;
-                    }
+                    convertStatements(statement, function);
                 }
 
                 function.append(END_OF_FUNCTION);
@@ -96,6 +78,46 @@ public class Converter {
         } catch (IOException ex) {
             System.out.println(WRITE_TO_FILE_EXCEPTION);
             System.exit(1);
+        }
+    }
+
+    private static void convertStatements(Statement statement, StringBuilder buffer) {
+        switch (statement.getStatementType()) {
+            case PRINT:
+                buffer.append(PRINT_FUNCTION_START);
+                Print print = (Print) statement;
+                List<Printable> printableList = print.getPrintableList();
+
+                for (Printable printable : printableList) {
+                    buffer.append(printable.getPrintableString()).append(CONCAT);
+                }
+
+                buffer.deleteCharAt(buffer.length() - 1);
+
+                buffer.append(PRINT_FUNCTION_END);
+                break;
+            case GOTO:
+                buffer.append(GOTO_FUNCTION_START);
+                Goto goTo = (Goto) statement;
+
+                buffer.append(goTo.getExpression().getPrintableString(true));
+                buffer.append(GOTO_FUNCTION_END);
+                break;
+            case END:
+                buffer.append(END_FUNCTION);
+                break;
+            case FOR:
+                buffer.append(FOR_FUNCTION_START);
+                For forr = (For) statement;
+                String header = forr.getHeader();
+                buffer.append(header, header.indexOf("(") + 1, header.indexOf(")") + 1);
+                buffer.append(FOR_FUNCTION_MIDDLE);
+                List<Statement> statementsInsideFor = forr.getStatements();
+
+                for (Statement statementInsideFor : statementsInsideFor) {
+                    convertStatements(statementInsideFor, buffer);
+                }
+                buffer.append(FOR_FUNCTION_END);
         }
     }
 }

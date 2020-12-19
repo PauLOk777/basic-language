@@ -6,6 +6,8 @@ public class Token {
 
     public enum TokenType {
         STRING,
+        FOR,
+        IF,
         INTEGER,
         DECIMAL,
         PRINT,
@@ -16,7 +18,7 @@ public class Token {
         COMMENT,
         NEW_LINE,
         SUM,
-        ERROR;
+        ERROR
     }
 
     public Token(Object info, TokenType tokenType) {

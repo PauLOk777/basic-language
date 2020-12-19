@@ -6,9 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lexer {
-    private static final int groupCount = 12;
+    private static final int groupCount = 14;
     private static final String REGEXP_FOR_DEFINING_TOKEN =
-            "((?<=[ ;])\"[^\"]*\"(?=[\\s;])|(?<=[ ;])'[^']*'(?=[\\s;]))" +
+                    "((?<=[ ;])\"[^\"]*\"(?=[\\s;])|(?<=[ ;])'[^']*'(?=[\\s;]))" +
+                    "|((?<= )for\\([-\\w\\d<>+=;!]+\\)(?=\\s))" +
+                    "|((?<= )if\\([\\w\\d<>=!]+\\)(?=\\s))" +
                     "|((?<=[ ;+])\\d+(?=[\\s;+])|^\\d+(?=[ ;+])|^\\d+$)" +
                     "|((?<=[ ;+])\\d+\\.(?=[\\s;+])|(?<=[ ;+])\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\d+\\.\\d+(?=[\\s;+])|(?<=[ ;+])\\.(?=[\\s;+]))" +
                     "|((?<= )print(?=\\s))" +
@@ -17,8 +19,8 @@ public class Lexer {
                     "|(;)" +
                     "|(:)" +
                     "|((?<= )rem(?=\\s))" +
-                    "|(\n)|" +
-                    "((?<=[ \\d.])\\+(?=[ \\d.]))" +
+                    "|(\n)" +
+                    "|((?<=[ \\d.])\\+(?=[ \\d.]))" +
                     "|(\\S+)";
 
     public static List<Token> tokenizeString(String row) {

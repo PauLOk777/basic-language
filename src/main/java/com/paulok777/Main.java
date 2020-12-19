@@ -16,7 +16,7 @@ public class Main {
     private static final String PSEUDO_FILE = "Pseudo.java";
 
     public static void main(String[] args) {
-        List<String> lines = Reader.getLines(args[0]);
+        List<String> lines = Reader.getLines("test.txt");
         List<List<Token>> matrixOfTokens = Lexer.parsePageToTokens(lines);
         TreeSet<Line> abstractSyntaxTree = Parser.getAbstractSyntaxTree(matrixOfTokens);
         File file = new File(PSEUDO_FILE);

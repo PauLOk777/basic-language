@@ -6,7 +6,9 @@ import com.paulok777.program.statements.printable.Printable;
 import java.util.List;
 
 public class Print extends Statement {
+
     public static final String PRINT = "print";
+
     private final List<Printable> printableList;
 
     public Print(List<Printable> printableList) {

@@ -2,12 +2,12 @@ package com.paulok777.parsers;
 
 import com.paulok777.exceptions.BasicSyntaxException;
 import com.paulok777.lexers.Token;
+import com.paulok777.program.Line;
+import com.paulok777.program.statements.*;
 import com.paulok777.program.statements.printable.Expression;
 import com.paulok777.program.statements.printable.Printable;
 import com.paulok777.program.statements.printable.PrintableString;
 import com.paulok777.program.statements.printable.expressions.Summary;
-import com.paulok777.program.statements.*;
-import com.paulok777.program.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Parser {
             } catch (BasicSyntaxException ex) {
                 String physicalLineString = "physical line number: " + (i + 1);
                 String userLineString = "line number: " + userLineNumber;
-                System.out.println("(" + physicalLineString + ", " + userLineString + ") " +  ex.getMessage());
+                System.out.println("(" + physicalLineString + ", " + userLineString + ") " + ex.getMessage());
                 System.exit(0);
             }
         }
@@ -67,7 +67,7 @@ public class Parser {
 
     private static Integer getNumberLine(Token token) {
         if (token.getTokenType().equals(Token.TokenType.INTEGER)) {
-            return  Integer.parseInt(token.getInfo().toString());
+            return Integer.parseInt(token.getInfo().toString());
         } else if (token.getTokenType().equals(Token.TokenType.DECIMAL)) {
             double number = Double.parseDouble(token.getInfo().toString());
             if (new Integer((int) number).doubleValue() == number)
@@ -93,6 +93,19 @@ public class Parser {
                 return new Goto(expression);
             case END:
                 return new End();
+            case IF:
+                List<Statement> statements = new ArrayList<>();
+                while (tokens.size() != 1) {
+                    statements.add(getStatement(tokens));
+                }
+                return new If(statements);
+            case FOR:
+                String header = token.getInfo().toString();
+                statements = new ArrayList<>();
+                while (tokens.size() != 1) {
+                    statements.add(getStatement(tokens));
+                }
+                return new For(header, statements);
             default:
                 throw new BasicSyntaxException(STATEMENT_EXCEPTION + token.getInfo());
         }
