@@ -6,10 +6,16 @@ public class If extends Statement {
 
     public static final String IF = "if";
 
+    private String header;
     private final List<Statement> statements;
 
-    public If(List<Statement> statements) {
+    public If(String header, List<Statement> statements) {
+        this.header = header;
         this.statements = statements;
+    }
+
+    public String getHeader() {
+        return header;
     }
 
     public List<Statement> getStatements() {

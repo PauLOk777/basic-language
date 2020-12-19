@@ -2,6 +2,7 @@
 35
 50 print "never gets here"
 40 end
+1 print "before for" : for(i = 0; i< 10; i+=3) print "4 times?"
 60 print 'three' : print 1.0 + 3
 70 goto 11. + 18.5 + .5 rem ignored
 10 print "o" ; "n" ; "e"

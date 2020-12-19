@@ -1,10 +1,7 @@
 package com.paulok777.converters;
 
 import com.paulok777.program.Line;
-import com.paulok777.program.statements.For;
-import com.paulok777.program.statements.Goto;
-import com.paulok777.program.statements.Print;
-import com.paulok777.program.statements.Statement;
+import com.paulok777.program.statements.*;
 import com.paulok777.program.statements.printable.Printable;
 
 import java.io.BufferedOutputStream;
@@ -28,10 +25,13 @@ public class Converter {
     private static final String FOR_FUNCTION_START = "for(int ";
     private static final String FOR_FUNCTION_MIDDLE = " {\n";
     private static final String FOR_FUNCTION_END = "}\n";
+    private static final String IF_FUNCTION_MIDDLE = " {\n";
+    private static final String IF_FUNCTION_END = "}\n";
     private static final String PRINT = "print";
     private static final String GOTO = "goto";
     private static final String END = "end";
     private static final String FOR = "for";
+    private static final String IF = "if";
     private static final String CONCAT = "+";
     private static final String MAIN_FUNCTION_START = "public static void main(String[] args) {\n";
     private static final String CREATE_NEW_FILE_EXCEPTION = "Can't create new file";
@@ -118,6 +118,19 @@ public class Converter {
                     convertStatements(statementInsideFor, buffer);
                 }
                 buffer.append(FOR_FUNCTION_END);
+                break;
+            case IF:
+                If iff = (If) statement;
+                header = iff.getHeader();
+                buffer.append(header);
+                buffer.append(IF_FUNCTION_MIDDLE);
+                List<Statement> statementsInsideIf = iff.getStatements();
+
+                for (Statement statementInsideIf : statementsInsideIf) {
+                    convertStatements(statementInsideIf, buffer);
+                }
+
+                buffer.append(IF_FUNCTION_END);
         }
     }
 }

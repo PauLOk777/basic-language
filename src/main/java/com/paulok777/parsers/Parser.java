@@ -94,13 +94,14 @@ public class Parser {
             case END:
                 return new End();
             case IF:
+                String header = token.getInfo().toString();
                 List<Statement> statements = new ArrayList<>();
                 while (tokens.size() != 1) {
                     statements.add(getStatement(tokens));
                 }
-                return new If(statements);
+                return new If(header, statements);
             case FOR:
-                String header = token.getInfo().toString();
+                header = token.getInfo().toString();
                 statements = new ArrayList<>();
                 while (tokens.size() != 1) {
                     statements.add(getStatement(tokens));

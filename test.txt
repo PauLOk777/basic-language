@@ -2,8 +2,8 @@
 5 goto 10
 15 rem ignored
 0 rem
-1 if(1<2) print "if"
-2 for(i=0;i<5;i++) print "cycle" : goto 3
+1 if(1 < 2) print "if"
+2 print "before for" : for(i = 0; i < 5; i++) print "cycle" : goto 3
 3 print "its 3"
 20 print "b";"yee";"e";1. : end
 
