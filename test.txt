@@ -3,7 +3,7 @@
 15 rem ignored
 0 rem
 1 if(1 < 2) print "if"
-2 print "before for" : for(i = 0; i < 5; i++) print "cycle" : goto 3
+2 print "before for" : for(i = 0; i < 5; i++) for(j = 0; j < 5; j++) if(i>3&&j>3) print "cycle" : goto 3
 3 print "its 3"
 20 print "b";"yee";"e";1. : end
 

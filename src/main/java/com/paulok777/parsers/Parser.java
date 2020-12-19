@@ -104,7 +104,8 @@ public class Parser {
                 header = token.getInfo().toString();
                 statements = new ArrayList<>();
                 while (tokens.size() != 1) {
-                    statements.add(getStatement(tokens));
+                    if (!Token.TokenType.STATEMENT_SEPARATOR.equals(token.getTokenType()))
+                        statements.add(getStatement(tokens));
                 }
                 return new For(header, statements);
             default:
